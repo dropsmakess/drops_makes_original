@@ -2,8 +2,8 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Drops Makes ☂️</title>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
@@ -31,21 +31,24 @@
       gap: 2rem;
       margin: 2rem;
     }
-    .login, .register {
+    .login,
+    .register {
       background-color: #2e2e40;
       padding: 2rem;
       max-width: 400px;
       width: 100%;
       border-radius: 10px;
     }
-    .login input, .register input {
+    .login input,
+    .register input {
       width: 100%;
       padding: 0.5rem;
       margin: 0.5rem 0;
       border-radius: 5px;
       border: none;
     }
-    .login button, .register button {
+    .login button,
+    .register button {
       background-color: #6a0dad;
       color: white;
       padding: 0.5rem;
@@ -53,6 +56,7 @@
       border: none;
       border-radius: 5px;
       font-size: 1rem;
+      cursor: pointer;
     }
     .produtos {
       display: grid;
@@ -79,6 +83,7 @@
       border: none;
       border-radius: 5px;
       font-size: 1rem;
+      cursor: pointer;
     }
     .whatsapp {
       position: fixed;
@@ -112,8 +117,8 @@
     <section class="login">
       <h2>Login</h2>
       <form id="login-form">
-        <input type="email" id="email" placeholder="Email" required>
-        <input type="password" id="senha" placeholder="Senha" required>
+        <input type="email" id="email" placeholder="Email" required />
+        <input type="password" id="senha" placeholder="Senha" required />
         <button type="submit">Entrar</button>
       </form>
     </section>
@@ -121,8 +126,8 @@
     <section class="register">
       <h2>Cadastro</h2>
       <form id="register-form">
-        <input type="email" id="new-email" placeholder="Novo email" required>
-        <input type="password" id="new-senha" placeholder="Nova senha" required>
+        <input type="email" id="new-email" placeholder="Novo email" required />
+        <input type="password" id="new-senha" placeholder="Nova senha" required />
         <button type="submit">Cadastrar</button>
       </form>
     </section>
@@ -150,42 +155,49 @@
     <div class="produto"><h3>Loot + Estratégias</h3><p>R$ 30,00</p><button>Descrição</button></div>
   </section>
 
-  <a class="whatsapp" href="https://wa.me/SEUNUMERO" target="_blank">💬</a>
+  <!-- Substitua SEUNUMERO pelo seu número real no formato internacional, ex: 5511999999999 -->
+  <a
+    class="whatsapp"
+    href="https://wa.me/SEUNUMERO"
+    target="_blank"
+    >💬</a
+  >
 
   <script>
     const firebaseConfig = {
       apiKey: "AIzaSyDZ8jbqov1jeY2UpB_kmV-QESSFZXb27NI",
       authDomain: "drops-makes.firebaseapp.com",
       projectId: "drops-makes",
-      storageBucket: "drops-makes.firebasestorage.app",
+      storageBucket: "drops-makes.appspot.com",
       messagingSenderId: "848547704825",
-      appId: "1:848547704825:web:4b2a4b654354cd0e8c9728"
+      appId: "1:848547704825:web:4b2a4b654354cd0e8c9728",
     };
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
 
-    document.getElementById("login-form").addEventListener("submit", function(e) {
+    document.getElementById("login-form").addEventListener("submit", function (e) {
       e.preventDefault();
       const email = document.getElementById("email").value;
       const senha = document.getElementById("senha").value;
-      auth.signInWithEmailAndPassword(email, senha)
-        .then(userCredential => {
+      auth
+        .signInWithEmailAndPassword(email, senha)
+        .then((userCredential) => {
           document.querySelector(".form-container").style.display = "none";
           document.getElementById("user-panel").style.display = "block";
           document.getElementById("user-email").textContent = userCredential.user.email;
         })
-        .catch(error => alert("Erro: " + error.message));
+        .catch((error) => alert("Erro: " + error.message));
     });
 
-    document.getElementById("register-form").addEventListener("submit", function(e) {
+    document.getElementById("register-form").addEventListener("submit", function (e) {
       e.preventDefault();
       const email = document.getElementById("new-email").value;
       const senha = document.getElementById("new-senha").value;
-      auth.createUserWithEmailAndPassword(email, senha)
-        .then(userCredential => alert("Cadastro realizado! Faça login."))
-        .catch(error => alert("Erro: " + error.message));
+      auth
+        .createUserWithEmailAndPassword(email, senha)
+        .then(() => alert("Cadastro realizado! Faça login."))
+        .catch((error) => alert("Erro: " + error.message));
     });
   </script>
 </body>
 </html>
-
