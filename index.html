@@ -8,27 +8,26 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background-color: #1e1e2f;
-      color: #ffffff;
+      background-color: #150f3c; /* roxo escuro */
+      color: #fff;
       margin: 0;
       padding: 0;
     }
     header {
-      background-color: #4b0082;
+      background-color: #3b2a6d; /* roxo escuro */
       padding: 1rem;
       text-align: center;
     }
-    header h1 {
-      margin: 0;
-    }
-    .banner {
-      width: 100%;
+    header img {
+      max-width: 100%;
+      height: auto;
       display: block;
+      margin: 0 auto;
     }
     .produtos {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 2rem;
+      gap: 1.5rem;
       padding: 2rem;
     }
     .produto {
@@ -41,17 +40,16 @@
       margin: 0.5rem 0;
     }
     .produto p {
-      margin: 0.5rem 0;
+      margin: 0.5rem 0 1rem 0;
     }
-    .btn-pagar {
-      background-color: #4b0082;
+    .produto button {
+      background-color: #4b3782;
       color: white;
       padding: 0.5rem 1rem;
       border: none;
       border-radius: 5px;
       font-size: 1rem;
       cursor: pointer;
-      margin-top: 0.5rem;
     }
     .whatsapp {
       position: fixed;
@@ -68,126 +66,31 @@
   </style>
 </head>
 <body>
-
-  <!-- Banner -->
-  <img src="banner.png" alt="Banner Drops Makes" class="banner" />
-
-  <!-- Cabeçalho -->
   <header>
-    <h1>Drops Makes ☂️</h1>
+    <img src="banner.png" alt="Banner Drops Makes" />
   </header>
 
-  <!-- Produtos -->
   <section class="produtos">
     <div class="produto">
       <h3>God Glider</h3>
-      <p>R$ 17,00</p>
-      <p>Glider otimizado para spots de alta vantagem competitiva.</p>
-      <button class="btn-pagar" onclick="copiarPix('pix@godglider.com')">Pagar com PIX</button>
+      <p>R$ 17,00 - Um planador poderoso para dominar o jogo.</p>
+      <button onclick="alert('Pagamento via PIX - God Glider: R$17,00')">Pagar com PIX</button>
     </div>
-
     <div class="produto">
       <h3>Rota de Loot</h3>
-      <p>R$ 14,99</p>
-      <p>Rotas testadas com loot consistente e rota segura.</p>
-      <button class="btn-pagar" onclick="copiarPix('pix@rotadeloot.com')">Pagar com PIX</button>
+      <p>R$ 14,99 - Melhore sua rota para pegar os melhores itens.</p>
+      <button onclick="alert('Pagamento via PIX - Rota de Loot: R$14,99')">Pagar com PIX</button>
     </div>
-
     <div class="produto">
       <h3>Estratégias / Meta</h3>
-      <p>R$ 18,99</p>
-      <p>Dicas atualizadas com base no meta competitivo atual.</p>
-      <button class="btn-pagar" onclick="copiarPix('pix@estrategias.com')">Pagar com PIX</button>
+      <p>R$ 18,99 - Estratégias avançadas para subir no ranking.</p>
+      <button onclick="alert('Pagamento via PIX - Estratégias / Meta: R$18,99')">Pagar com PIX</button>
     </div>
-
-    <div class="produto">
-      <h3>Pack Solo</h3>
-      <p>R$ 29,99</p>
-      <p>Pacote completo para treinos e partidas solo ranqueadas.</p>
-      <button class="btn-pagar" onclick="copiarPix('pix@solopack.com')">Pagar com PIX</button>
-    </div>
-
-    <div class="produto">
-      <h3>Pack Console Cup Duos</h3>
-      <p>R$ 29,99</p>
-      <p>Duplas otimizadas para as competições de console.</p>
-      <button class="btn-pagar" onclick="copiarPix('pix@duoscup.com')">Pagar com PIX</button>
-    </div>
-
-    <div class="produto">
-      <h3>Pack Trio Básico</h3>
-      <p>R$ 33,00</p>
-      <p>Pack inicial para trios com rota + posicionamento.</p>
-      <button class="btn-pagar" onclick="copiarPix('pix@triobasico.com')">Pagar com PIX</button>
-    </div>
-
-    <div class="produto">
-      <h3>Pack Trio Avançado</h3>
-      <p>R$ 44,99</p>
-      <p>Estratégias coordenadas com posicionamento por role.</p>
-      <button class="btn-pagar" onclick="copiarPix('pix@trioavancado.com')">Pagar com PIX</button>
-    </div>
-
-    <div class="produto">
-      <h3>Pack Trio Cocheado</h3>
-      <p>R$ 79,99</p>
-      <p>Pacote com coaching completo e revisão de partidas.</p>
-      <button class="btn-pagar" onclick="copiarPix('pix@triocoach.com')">Pagar com PIX</button>
-    </div>
-
-    <div class="produto">
-      <h3>2 God Gliders</h3>
-      <p>R$ 30,00</p>
-      <p>Pacote com dois gliders para dupla ou variações de queda.</p>
-      <button class="btn-pagar" onclick="copiarPix('pix@2gliders.com')">Pagar com PIX</button>
-    </div>
-
-    <div class="produto">
-      <h3>Glider + Loot</h3>
-      <p>R$ 28,00</p>
-      <p>Combo com posicionamento e loot ideal.</p>
-      <button class="btn-pagar" onclick="copiarPix('pix@gliderloot.com')">Pagar com PIX</button>
-    </div>
-
-    <div class="produto">
-      <h3>Glider + Loot + Estratégias</h3>
-      <p>R$ 45,00</p>
-      <p>Combo completo para controle total do early game.</p>
-      <button class="btn-pagar" onclick="copiarPix('pix@combofull.com')">Pagar com PIX</button>
-    </div>
-
-    <div class="produto">
-      <h3>Glider + Estratégias</h3>
-      <p>R$ 33,00</p>
-      <p>Queda perfeita + decisões estratégicas eficazes.</p>
-      <button class="btn-pagar" onclick="copiarPix('pix@gliderestrategia.com')">Pagar com PIX</button>
-    </div>
-
-    <div class="produto">
-      <h3>Loot + Estratégias</h3>
-      <p>R$ 30,00</p>
-      <p>Loot ideal com rota + decisões para o mid/late game.</p>
-      <button class="btn-pagar" onclick="copiarPix('pix@lootestrategia.com')">Pagar com PIX</button>
-    </div>
+    <!-- Adicione mais produtos conforme desejar -->
   </section>
 
-  <!-- Botão do WhatsApp -->
-  <a
-    class="whatsapp"
-    href="https://wa.me/SEUNUMERO"
-    target="_blank"
-    >💬</a
-  >
-
-  <!-- Script para copiar PIX -->
-  <script>
-    function copiarPix(chave) {
-      navigator.clipboard.writeText(chave).then(() => {
-        alert("Chave PIX copiada!");
-      }).catch(() => {
-        alert("Erro ao copiar chave PIX.");
-      });
-    }
-  </script>
+  <a href="https://wa.me/SEUNUMERO" target="_blank" class="whatsapp">💬</a>
 </body>
 </html>
+
+
