@@ -64,10 +64,7 @@
       background-color: #2e2e40;
       padding: 1rem;
       border-radius: 10px;
-    }
-    .produto img {
-      width: 100%;
-      border-radius: 10px;
+      text-align: center;
     }
     .produto h3 {
       margin: 0.5rem 0;
@@ -79,7 +76,6 @@
       background-color: #6a0dad;
       color: white;
       padding: 0.5rem;
-      width: 100%;
       border: none;
       border-radius: 5px;
       font-size: 1rem;
@@ -105,14 +101,6 @@
       border-radius: 10px;
       text-align: center;
     }
-    .user-panel p {
-      margin: 1rem 0;
-    }
-    .user-panel .recovery {
-      color: #6a0dad;
-      text-decoration: underline;
-      cursor: pointer;
-    }
   </style>
 </head>
 <body>
@@ -128,8 +116,6 @@
         <input type="password" id="senha" placeholder="Senha" required>
         <button type="submit">Entrar</button>
       </form>
-      <p class="recovery" onclick="recoverPassword()">Esqueceu a senha?</p>
-      <p id="login-status" style="color: red; text-align: center; margin-top: 10px;"></p>
     </section>
 
     <section class="register">
@@ -139,86 +125,67 @@
         <input type="password" id="new-senha" placeholder="Nova senha" required>
         <button type="submit">Cadastrar</button>
       </form>
-      <p id="register-status" style="color: red; text-align: center; margin-top: 10px;"></p>
     </section>
   </section>
 
   <section class="user-panel" id="user-panel">
     <h2>Bem-vindo(a) ao Painel do Usuário</h2>
     <p>Você está logado como <span id="user-email"></span></p>
-    <p>Seus pedidos serão salvos automaticamente.</p>
     <button onclick="auth.signOut().then(() => location.reload())">Sair</button>
   </section>
 
   <section class="produtos">
-    <!-- produtos aqui -->
+    <div class="produto"><h3>God Glider</h3><p>R$ 17,00</p><button>Descrição</button></div>
+    <div class="produto"><h3>Rota de Loot</h3><p>R$ 14,99</p><button>Descrição</button></div>
+    <div class="produto"><h3>Estratégias / Meta</h3><p>R$ 18,99</p><button>Descrição</button></div>
+    <div class="produto"><h3>Pack Solo</h3><p>R$ 29,99</p><button>Descrição</button></div>
+    <div class="produto"><h3>Pack Console Cup Duos</h3><p>R$ 29,99</p><button>Descrição</button></div>
+    <div class="produto"><h3>Pack Trio Básico</h3><p>R$ 33,00</p><button>Descrição</button></div>
+    <div class="produto"><h3>Pack Trio Avançado</h3><p>R$ 44,99</p><button>Descrição</button></div>
+    <div class="produto"><h3>Pack Trio Cocheado</h3><p>R$ 79,99</p><button>Descrição</button></div>
+    <div class="produto"><h3>2 God Gliders</h3><p>R$ 30,00</p><button>Descrição</button></div>
+    <div class="produto"><h3>Glider + Loot</h3><p>R$ 28,00</p><button>Descrição</button></div>
+    <div class="produto"><h3>Glider + Loot + Estratégias</h3><p>R$ 45,00</p><button>Descrição</button></div>
+    <div class="produto"><h3>Glider + Estratégias</h3><p>R$ 33,00</p><button>Descrição</button></div>
+    <div class="produto"><h3>Loot + Estratégias</h3><p>R$ 30,00</p><button>Descrição</button></div>
   </section>
 
   <a class="whatsapp" href="https://wa.me/SEUNUMERO" target="_blank">💬</a>
 
   <script>
     const firebaseConfig = {
-      apiKey: "SUA_API_KEY",
-      authDomain: "SEU_DOMINIO.firebaseapp.com",
-      projectId: "SEU_PROJECT_ID",
-      storageBucket: "SEU_BUCKET.appspot.com",
-      messagingSenderId: "SEU_MESSAGING_ID",
-      appId: "SUA_APP_ID"
+      apiKey: "AIzaSyDZ8jbqov1jeY2UpB_kmV-QESSFZXb27NI",
+      authDomain: "drops-makes.firebaseapp.com",
+      projectId: "drops-makes",
+      storageBucket: "drops-makes.firebasestorage.app",
+      messagingSenderId: "848547704825",
+      appId: "1:848547704825:web:4b2a4b654354cd0e8c9728"
     };
     firebase.initializeApp(firebaseConfig);
     const auth = firebase.auth();
-    const db = firebase.firestore();
 
     document.getElementById("login-form").addEventListener("submit", function(e) {
       e.preventDefault();
       const email = document.getElementById("email").value;
       const senha = document.getElementById("senha").value;
-      const status = document.getElementById("login-status");
       auth.signInWithEmailAndPassword(email, senha)
         .then(userCredential => {
-          status.style.color = "#0f0";
-          status.textContent = "Login bem-sucedido!";
+          document.querySelector(".form-container").style.display = "none";
+          document.getElementById("user-panel").style.display = "block";
+          document.getElementById("user-email").textContent = userCredential.user.email;
         })
-        .catch(error => {
-          status.style.color = "red";
-          status.textContent = "Erro: " + error.message;
-        });
+        .catch(error => alert("Erro: " + error.message));
     });
 
     document.getElementById("register-form").addEventListener("submit", function(e) {
       e.preventDefault();
       const email = document.getElementById("new-email").value;
       const senha = document.getElementById("new-senha").value;
-      const status = document.getElementById("register-status");
       auth.createUserWithEmailAndPassword(email, senha)
-        .then(userCredential => {
-          status.style.color = "#0f0";
-          status.textContent = "Cadastro realizado com sucesso! Faça login.";
-          const userId = userCredential.user.uid;
-          db.collection("usuarios").doc(userId).set({ email });
-        })
-        .catch(error => {
-          status.style.color = "red";
-          status.textContent = "Erro: " + error.message;
-        });
+        .then(userCredential => alert("Cadastro realizado! Faça login."))
+        .catch(error => alert("Erro: " + error.message));
     });
-
-    auth.onAuthStateChanged(user => {
-      if (user) {
-        document.querySelector(".form-container").style.display = "none";
-        document.getElementById("user-panel").style.display = "block";
-        document.getElementById("user-email").textContent = user.email;
-      }
-    });
-
-    function recoverPassword() {
-      const email = prompt("Digite seu email para recuperação de senha:");
-      if (email) {
-        auth.sendPasswordResetEmail(email)
-          .then(() => alert("Email de recuperação enviado!"))
-          .catch(err => alert("Erro: " + err.message));
-      }
-    }
   </script>
 </body>
 </html>
+
