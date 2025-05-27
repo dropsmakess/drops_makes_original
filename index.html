@@ -55,7 +55,7 @@
 
     .produtos {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
       gap: 20px;
       padding: 40px;
     }
@@ -82,7 +82,7 @@
     }
 
     .produto-info h2 {
-      font-size: 1.2rem;
+      font-size: 1.3rem;
       color: #bb00ff;
     }
 
@@ -90,6 +90,7 @@
       margin: 10px 0 0;
       font-size: 1rem;
       color: #ccc;
+      white-space: pre-line;
     }
 
     .btn-add {
@@ -101,6 +102,7 @@
       border-radius: 5px;
       cursor: pointer;
       width: 100%;
+      font-weight: bold;
     }
 
     .carrinho {
@@ -140,22 +142,28 @@
       border-radius: 5px;
       background-color: #2a003f;
       color: #fff;
+      width: 250px;
+      max-width: 90%;
+      font-size: 1rem;
     }
 
     .login-form button {
       padding: 10px 20px;
-      margin-top: 10px;
+      margin: 5px;
       background-color: #bb00ff;
       border: none;
       color: white;
       border-radius: 5px;
       cursor: pointer;
+      font-weight: bold;
     }
 
     .login-msg {
       text-align: center;
       color: #bb00ff;
       margin-top: 10px;
+      min-height: 1.4rem;
+      font-weight: bold;
     }
 
     footer {
@@ -183,6 +191,7 @@
     <input type="email" placeholder="Email" id="email" />
     <input type="password" placeholder="Senha" id="senha" />
     <button onclick="login()">Entrar</button>
+    <button onclick="cadastrar()">Cadastrar</button>
     <div id="login-status" class="login-msg"></div>
   </div>
 
@@ -197,27 +206,48 @@
 
   <main class="produtos" id="lista-produtos">
     <div class="produto" data-categoria="roupas">
-      <img src="https://via.placeholder.com/300x200" alt="Produto 1">
+      <img src="https://via.placeholder.com/300x200" alt="Pack Básico">
       <div class="produto-info">
-        <h2>Produto 1</h2>
-        <p>R$ 99,90</p>
-        <button class="btn-add" onclick="adicionarCarrinho('Produto 1')">Adicionar ao carrinho</button>
-      </div>
-    </div>
-    <div class="produto" data-categoria="acessorios">
-      <img src="https://via.placeholder.com/300x200" alt="Produto 2">
-      <div class="produto-info">
-        <h2>Produto 2</h2>
-        <p>R$ 149,90</p>
-        <button class="btn-add" onclick="adicionarCarrinho('Produto 2')">Adicionar ao carrinho</button>
+        <h2>Pᴀᴄᴋ ᴘᴀʀᴀ Tʀɪᴏ Bᴀ́sɪᴄᴏ</h2>
+        <p>R$ 30,00</p>
+        <p>
+          1 God Glider;<br/>
+          1 Rota de Loot;<br/>
+          1 Kit de Estratégias para Topear
+        </p>
+        <button class="btn-add" onclick="adicionarCarrinho('Pack para Trio Básico')">Adicionar ao carrinho</button>
       </div>
     </div>
     <div class="produto" data-categoria="roupas">
-      <img src="https://via.placeholder.com/300x200" alt="Produto 3">
+      <img src="https://via.placeholder.com/300x200" alt="Pack Avançado">
       <div class="produto-info">
-        <h2>Produto 3</h2>
-        <p>R$ 79,90</p>
-        <button class="btn-add" onclick="adicionarCarrinho('Produto 3')">Adicionar ao carrinho</button>
+        <h2>Pᴀᴄᴋ ᴘᴀʀᴀ Tʀɪᴏ Aᴠᴀɴᴄ̧ᴀᴅᴏ</h2>
+        <p>R$ 45,00</p>
+        <p>
+          1 God Glider;<br/>
+          1 Rota de Loot;<br/>
+          1 Kit de Estratégias para Topear,<br/>
+          Trabalhamos sua Mentalidade,<br/>
+          1 VOD por semana
+        </p>
+        <button class="btn-add" onclick="adicionarCarrinho('Pack para Trio Avançado')">Adicionar ao carrinho</button>
+      </div>
+    </div>
+    <div class="produto" data-categoria="roupas">
+      <img src="https://via.placeholder.com/300x200" alt="Pack Coachado">
+      <div class="produto-info">
+        <h2>Pᴀᴄᴋ ᴘᴀʀᴀ Tʀɪᴏ Cᴏᴀᴄʜᴀᴅᴏ</h2>
+        <p>R$ 80,00</p>
+        <p>
+          1 God Glider;<br/>
+          1 Rota de Loot;<br/>
+          1 Kit de Estratégias para Topear,<br/>
+          Trabalhamos sua Mentalidade,<br/>
+          VODS sempre que quiser,<br/>
+          Como Ler as Safes,<br/>
+          Como achar sua Sensibilidade Ideal
+        </p>
+        <button class="btn-add" onclick="adicionarCarrinho('Pack para Trio Coachado')">Adicionar ao carrinho</button>
       </div>
     </div>
   </main>
@@ -263,23 +293,48 @@
       });
     }
 
+    // Funções simples de cadastro e login usando localStorage
+    function cadastrar() {
+      const email = document.getElementById('email').value.trim();
+      const senha = document.getElementById('senha').value.trim();
+      const loginStatus = document.getElementById('login-status');
+
+      if (!email || !senha) {
+        loginStatus.textContent = 'Preencha email e senha para cadastrar.';
+        loginStatus.style.color = 'orange';
+        return;
+      }
+
+      let usuarios = JSON.parse(localStorage.getItem('usuarios') || '{}');
+      if (usuarios[email]) {
+        loginStatus.textContent = 'Usuário já cadastrado.';
+        loginStatus.style.color = 'red';
+        return;
+      }
+
+      usuarios[email] = senha;
+      localStorage.setItem('usuarios', JSON.stringify(usuarios));
+      loginStatus.textContent = `Usuário ${email} cadastrado com sucesso!`;
+      loginStatus.style.color = '#25d366';
+    }
+
     function login() {
-      const email = document.getElementById('email').value;
-      const senha = document.getElementById('senha').value;
+      const email = document.getElementById('email').value.trim();
+      const senha = document.getElementById('senha').value.trim();
       const loginStatus = document.getElementById('login-status');
       const bemvindo = document.getElementById('bemvindo');
 
-      // Login fixo
-      if (email === 'teste@rbl.com' && senha === '1234') {
+      let usuarios = JSON.parse(localStorage.getItem('usuarios') || '{}');
+      if (usuarios[email] && usuarios[email] === senha) {
         loginStatus.textContent = 'Login realizado com sucesso!';
         loginStatus.style.color = '#25d366';
         bemvindo.textContent = `Bem-vindo, ${email}`;
       } else {
         loginStatus.textContent = 'Email ou senha incorretos.';
         loginStatus.style.color = 'red';
+        bemvindo.textContent = '';
       }
     }
   </script>
 </body>
 </html>
-
