@@ -3,142 +3,283 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Drops Makes ☂️</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>RBL Dropz</title>
+  <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/9610/9610739.png" type="image/png">
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background-color: #150f3c;
-      color: #fff;
       margin: 0;
-      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0d0d0d;
+      color: #ffffff;
     }
+
     header {
-      background-color: #3b2a6d;
-      padding: 1rem;
+      background-color: #2a003f;
+      padding: 20px;
       text-align: center;
     }
-    header img {
-      max-width: 100%;
-      height: auto;
-      display: block;
-      margin: 0 auto;
+
+    header h1 {
+      margin: 0;
+      font-size: 2.5rem;
+      color: #bb00ff;
     }
-    .produtos {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5rem;
-      padding: 2rem;
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      padding: 10px;
+      background-color: #1a1a1a;
     }
-    .produto {
-      background-color: #2e2e40;
-      padding: 1rem;
-      border-radius: 10px;
+
+    nav a {
+      color: #bb00ff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    .filtros {
       text-align: center;
+      margin: 20px;
     }
-    .produto h3 {
-      margin: 0.5rem 0;
-    }
-    .produto p {
-      margin: 0.5rem 0 1rem 0;
-    }
-    .produto button {
-      background-color: #4b3782;
-      color: white;
-      padding: 0.5rem 1rem;
+
+    .filtros select {
+      padding: 10px;
+      background-color: #2a003f;
+      color: #fff;
       border: none;
       border-radius: 5px;
-      font-size: 1rem;
-      cursor: pointer;
     }
-    .whatsapp {
+
+    .produtos {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      padding: 40px;
+    }
+
+    .produto {
+      background-color: #1a1a1a;
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform 0.3s ease;
+    }
+
+    .produto:hover {
+      transform: scale(1.05);
+    }
+
+    .produto img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .produto-info {
+      padding: 15px;
+    }
+
+    .produto-info h2 {
+      font-size: 1.2rem;
+      color: #bb00ff;
+    }
+
+    .produto-info p {
+      margin: 10px 0 0;
+      font-size: 1rem;
+      color: #ccc;
+    }
+
+    .btn-add {
+      margin-top: 10px;
+      background-color: #bb00ff;
+      border: none;
+      padding: 10px;
+      color: #fff;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    .carrinho {
+      padding: 20px;
+      background-color: #1a1a1a;
+      margin: 20px;
+      border-radius: 10px;
+    }
+
+    .whatsapp-btn {
       position: fixed;
       bottom: 20px;
       right: 20px;
       background-color: #25d366;
-      color: white;
-      padding: 0.8rem;
+      border: none;
       border-radius: 50%;
-      font-size: 2rem;
+      width: 60px;
+      height: 60px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    }
+
+    .whatsapp-btn img {
+      width: 35px;
+      height: 35px;
+      margin-top: 12px;
+    }
+
+    .login-form {
+      padding: 20px;
       text-align: center;
-      text-decoration: none;
+    }
+
+    .login-form input {
+      padding: 10px;
+      margin: 5px;
+      border: none;
+      border-radius: 5px;
+      background-color: #2a003f;
+      color: #fff;
+    }
+
+    .login-form button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      background-color: #bb00ff;
+      border: none;
+      color: white;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    .login-msg {
+      text-align: center;
+      color: #bb00ff;
+      margin-top: 10px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #2a003f;
+      color: #bb00ff;
     }
   </style>
 </head>
 <body>
   <header>
-    <img src="banner.png" alt="Banner Drops Makes" />
+    <h1>RBL Dropz</h1>
+    <div id="bemvindo" class="login-msg"></div>
   </header>
 
-  <section class="produtos">
-    <div class="produto">
-      <h3>God Glider</h3>
-      <p>R$ 17,00 - Um planador poderoso para dominar o jogo.</p>
-      <button onclick="alert('Pagamento via PIX - God Glider: R$17,00')">Pagar com PIX</button>
+  <nav>
+    <a href="#">Início</a>
+    <a href="#categorias">Categorias</a>
+    <a href="#carrinho">Carrinho</a>
+    <a href="#contato">Contato</a>
+  </nav>
+
+  <div class="login-form">
+    <input type="email" placeholder="Email" id="email" />
+    <input type="password" placeholder="Senha" id="senha" />
+    <button onclick="login()">Entrar</button>
+    <div id="login-status" class="login-msg"></div>
+  </div>
+
+  <div class="filtros">
+    <label for="categoria">Filtrar por categoria:</label>
+    <select id="categoria" onchange="filtrarProdutos()">
+      <option value="todos">Todos</option>
+      <option value="roupas">Roupas</option>
+      <option value="acessorios">Acessórios</option>
+    </select>
+  </div>
+
+  <main class="produtos" id="lista-produtos">
+    <div class="produto" data-categoria="roupas">
+      <img src="https://via.placeholder.com/300x200" alt="Produto 1">
+      <div class="produto-info">
+        <h2>Produto 1</h2>
+        <p>R$ 99,90</p>
+        <button class="btn-add" onclick="adicionarCarrinho('Produto 1')">Adicionar ao carrinho</button>
+      </div>
     </div>
-    <div class="produto">
-      <h3>Rota de Loot</h3>
-      <p>R$ 14,99 - Melhore sua rota para pegar os melhores itens.</p>
-      <button onclick="alert('Pagamento via PIX - Rota de Loot: R$14,99')">Pagar com PIX</button>
+    <div class="produto" data-categoria="acessorios">
+      <img src="https://via.placeholder.com/300x200" alt="Produto 2">
+      <div class="produto-info">
+        <h2>Produto 2</h2>
+        <p>R$ 149,90</p>
+        <button class="btn-add" onclick="adicionarCarrinho('Produto 2')">Adicionar ao carrinho</button>
+      </div>
     </div>
-    <div class="produto">
-      <h3>Estratégias / Meta</h3>
-      <p>R$ 18,99 - Estratégias avançadas para subir no ranking.</p>
-      <button onclick="alert('Pagamento via PIX - Estratégias / Meta: R$18,99')">Pagar com PIX</button>
+    <div class="produto" data-categoria="roupas">
+      <img src="https://via.placeholder.com/300x200" alt="Produto 3">
+      <div class="produto-info">
+        <h2>Produto 3</h2>
+        <p>R$ 79,90</p>
+        <button class="btn-add" onclick="adicionarCarrinho('Produto 3')">Adicionar ao carrinho</button>
+      </div>
     </div>
-    <div class="produto">
-      <h3>Pack Solo</h3>
-      <p>R$ 29,99 - Pacote completo para quem joga solo.</p>
-      <button onclick="alert('Pagamento via PIX - Pack Solo: R$29,99')">Pagar com PIX</button>
-    </div>
-    <div class="produto">
-      <h3>Pack Console Cup Duos</h3>
-      <p>R$ 29,99 - Ideal para duplas em campeonatos de console.</p>
-      <button onclick="alert('Pagamento via PIX - Pack Console Cup Duos: R$29,99')">Pagar com PIX</button>
-    </div>
-    <div class="produto">
-      <h3>Pack Trio Básico</h3>
-      <p>R$ 33,00 - Estratégias básicas para trios iniciantes.</p>
-      <button onclick="alert('Pagamento via PIX - Pack Trio Básico: R$33,00')">Pagar com PIX</button>
-    </div>
-    <div class="produto">
-      <h3>Pack Trio Avançado</h3>
-      <p>R$ 44,99 - Estratégias avançadas para trios experientes.</p>
-      <button onclick="alert('Pagamento via PIX - Pack Trio Avançado: R$44,99')">Pagar com PIX</button>
-    </div>
-    <div class="produto">
-      <h3>Pack Trio Cocheado</h3>
-      <p>R$ 79,99 - Trio com coaching profissional incluso.</p>
-      <button onclick="alert('Pagamento via PIX - Pack Trio Cocheado: R$79,99')">Pagar com PIX</button>
-    </div>
-    <div class="produto">
-      <h3>2 God Gliders</h3>
-      <p>R$ 30,00 - Dois planadores para você e seu duo.</p>
-      <button onclick="alert('Pagamento via PIX - 2 God Gliders: R$30,00')">Pagar com PIX</button>
-    </div>
-    <div class="produto">
-      <h3>God Glider + Rota de Loot</h3>
-      <p>R$ 28,00 - Combo ideal para dominar a partida.</p>
-      <button onclick="alert('Pagamento via PIX - God Glider + Rota de Loot: R$28,00')">Pagar com PIX</button>
-    </div>
-    <div class="produto">
-      <h3>God Glider + Rota + Estratégias</h3>
-      <p>R$ 45,00 - O pacote completo para melhorar no jogo.</p>
-      <button onclick="alert('Pagamento via PIX - God Glider + Rota + Estratégias: R$45,00')">Pagar com PIX</button>
-    </div>
-    <div class="produto">
-      <h3>God Glider + Estratégias</h3>
-      <p>R$ 33,00 - Planador e táticas para vencer mais partidas.</p>
-      <button onclick="alert('Pagamento via PIX - God Glider + Estratégias: R$33,00')">Pagar com PIX</button>
-    </div>
-    <div class="produto">
-      <h3>Rota de Loot + Estratégias</h3>
-      <p>R$ 30,00 - Rota eficiente com as melhores estratégias.</p>
-      <button onclick="alert('Pagamento via PIX - Rota de Loot + Estratégias: R$30,00')">Pagar com PIX</button>
-    </div>
+  </main>
+
+  <section id="carrinho" class="carrinho">
+    <h2>Seu Carrinho</h2>
+    <ul id="itens-carrinho"></ul>
   </section>
 
-  <a href="https://wa.me/SEUNUMERO" target="_blank" class="whatsapp">💬</a>
+  <a class="whatsapp-btn" href="https://wa.me/seunumero" target="_blank">
+    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
+  </a>
+
+  <footer>
+    <p>&copy; 2025 RBL Dropz. Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    const carrinho = [];
+
+    function adicionarCarrinho(produto) {
+      carrinho.push(produto);
+      atualizarCarrinho();
+    }
+
+    function atualizarCarrinho() {
+      const lista = document.getElementById('itens-carrinho');
+      lista.innerHTML = '';
+      carrinho.forEach(item => {
+        const li = document.createElement('li');
+        li.textContent = item;
+        lista.appendChild(li);
+      });
+    }
+
+    function filtrarProdutos() {
+      const categoriaSelecionada = document.getElementById('categoria').value;
+      const produtos = document.querySelectorAll('.produto');
+
+      produtos.forEach(produto => {
+        const categoria = produto.getAttribute('data-categoria');
+        produto.style.display = categoriaSelecionada === 'todos' || categoria === categoriaSelecionada ? 'block' : 'none';
+      });
+    }
+
+    function login() {
+      const email = document.getElementById('email').value;
+      const senha = document.getElementById('senha').value;
+      const loginStatus = document.getElementById('login-status');
+      const bemvindo = document.getElementById('bemvindo');
+
+      // Login fixo
+      if (email === 'teste@rbl.com' && senha === '1234') {
+        loginStatus.textContent = 'Login realizado com sucesso!';
+        loginStatus.style.color = '#25d366';
+        bemvindo.textContent = `Bem-vindo, ${email}`;
+      } else {
+        loginStatus.textContent = 'Email ou senha incorretos.';
+        loginStatus.style.color = 'red';
+      }
+    }
+  </script>
 </body>
 </html>
 
