@@ -2,248 +2,134 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>💧 MV Drops</title>
-  <link rel="icon" href="/mnt/data/e189ad88-a07d-4848-bbcc-5dc443e19696.png" type="image/png">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Renda Online em 72h</title>
   <style>
     body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #0d0d0d;
-      color: #ffffff;
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #fff;
+      padding: 20px;
+      max-width: 700px;
+      margin: auto;
     }
-
-    section.banner {
-      background: linear-gradient(135deg, #bb00ff, #2a003f);
-      padding: 40px;
-      text-align: center;
+    h1, h2, h3 {
+      color: #ff3c00;
+    }
+    .highlight {
+      background: #ff3c00;
+      padding: 3px 6px;
+      border-radius: 4px;
+      color: #fff;
+    }
+    .button {
+      display: inline-block;
+      background-color: #ff3c00;
       color: white;
-    }
-
-    section.banner h2 {
-      font-size: 2rem;
-      margin-bottom: 10px;
-    }
-
-    section.banner p {
-      font-size: 1.2rem;
-      max-width: 600px;
-      margin: 0 auto;
-    }
-
-    nav {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      padding: 10px;
-      background-color: #1a1a1a;
-    }
-
-    nav a {
-      color: #bb00ff;
+      padding: 15px 25px;
+      font-size: 18px;
       text-decoration: none;
-      font-weight: bold;
-    }
-
-    .filtros {
-      text-align: center;
-      margin: 20px;
-    }
-
-    .filtros select {
-      padding: 10px;
-      background-color: #2a003f;
-      color: #fff;
-      border: none;
       border-radius: 5px;
+      margin-top: 30px;
+      animation: pulse 1s infinite;
     }
-
-    .produtos {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 20px;
-      padding: 40px;
+    @keyframes pulse {
+      0% { box-shadow: 0 0 0 0 rgba(255, 60, 0, 0.7); }
+      70% { box-shadow: 0 0 0 10px rgba(255, 60, 0, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(255, 60, 0, 0); }
     }
-
-    .produto {
-      background-color: #1a1a1a;
-      border-radius: 10px;
-      overflow: hidden;
-      transition: transform 0.3s ease;
+    .testimonial {
+      font-style: italic;
+      background-color: #222;
+      padding: 10px;
+      border-left: 4px solid #ff3c00;
+      margin: 15px 0;
     }
-
-    .produto:hover {
-      transform: scale(1.05);
+    form {
+      margin-top: 30px;
+      background: #222;
+      padding: 20px;
+      border-radius: 8px;
     }
-
-    .produto img {
+    input[type="email"] {
       width: 100%;
-      height: 200px;
-      object-fit: cover;
-    }
-
-    .produto-info {
-      padding: 15px;
-    }
-
-    .produto-info h2 {
-      font-size: 1.2rem;
-      color: #bb00ff;
-    }
-
-    .produto-info p {
-      margin: 10px 0 0;
-      font-size: 1rem;
-      color: #ccc;
-    }
-
-    .btn-add {
-      margin-top: 10px;
-      background-color: #bb00ff;
-      border: none;
       padding: 10px;
-      color: #fff;
-      border-radius: 5px;
+      border-radius: 4px;
+      border: none;
+      margin-bottom: 15px;
+      font-size: 16px;
+    }
+    input[type="submit"] {
+      background-color: #ff3c00;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 16px;
       cursor: pointer;
+      border-radius: 5px;
       width: 100%;
     }
-
-    .carrinho {
-      padding: 20px;
-      background-color: #1a1a1a;
-      margin: 20px;
-      border-radius: 10px;
+    input[type="submit"]:hover {
+      background-color: #e63a00;
     }
-
-    .whatsapp-btn {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #25d366;
-      border: none;
-      border-radius: 50%;
-      width: 60px;
-      height: 60px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
-    }
-
-    .whatsapp-btn img {
-      width: 35px;
-      height: 35px;
-      margin-top: 12px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 20px;
-      background-color: #2a003f;
-      color: #bb00ff;
+    @media (max-width: 768px) {
+      body {
+        padding: 10px;
+      }
     }
   </style>
 </head>
 <body>
-  <section class="banner">
-    <h2>Bem-vindo à MV Drops</h2>
-    <p>A melhor loja para jogadores de Fortnite: encontre God Gliders, Rotas de Loot, Estratégias e Packs exclusivos para dominar suas partidas!</p>
-  </section>
+  <h1>Renda Online em 72h</h1>
+  <h2>Você tem <span class="highlight">72 horas</span>. Não há backup.</h2>
+  <p>Não existe segunda chance. Se você não gerar sua primeira renda online agora, alguém vai no seu lugar.</p>
 
-  <nav>
-    <a href="#">Início</a>
-    <a href="#categorias">Categorias</a>
-    <a href="#carrinho">Carrinho</a>
-    <a href="#contato">Contato</a>
-  </nav>
+  <h3>⚠️ As vagas para esse método estão se esgotando.</h3>
+  <ul>
+    <li>✅ Produto 100% digital, pronto para hoje</li>
+    <li>✅ Estratégia validada por +1.300 alunos</li>
+    <li>✅ Comece do zero, mesmo sem seguidores</li>
+  </ul>
 
-  <div class="filtros">
-    <label for="categoria">Filtrar por categoria:</label>
-    <select id="categoria" onchange="filtrarProdutos()">
-      <option value="todos">Todos</option>
-      <option value="godgliders">God Gliders</option>
-      <option value="rotas">Rotas de Loot</option>
-      <option value="estrategias">Estratégias</option>
-      <option value="packs">Packs</option>
-    </select>
+  <h3>🚨 Por que esse método funciona?</h3>
+  <ul>
+    <li>🔹 Não exige anúncios</li>
+    <li>🔹 Baseado em IA</li>
+    <li>🔹 Foco total em ação</li>
+  </ul>
+
+  <div class="testimonial">
+    “Fiz minha primeira venda em 2 dias. Finalmente algo prático!” — Lucas R., BH
+  </div>
+  <div class="testimonial">
+    “Criei meu produto com ChatGPT e vendi no mesmo dia. R$39 virou R$468.” — Marina L., SP
   </div>
 
-  <main class="produtos" id="lista-produtos">
-    <div class="produto" data-categoria="godgliders">
-      <img src="https://cdn.pixabay.com/photo/2017/01/20/00/30/parachute-1993717_960_720.jpg" alt="God Glider X">
-      <div class="produto-info">
-        <h2>God Glider X</h2>
-        <p>Glider exclusivo com design único para dominar o mapa.</p>
-        <button class="btn-add" onclick="adicionarCarrinho('God Glider X')">Adicionar ao Carrinho</button>
-      </div>
-    </div>
+  <h3>🧠 O que você vai aprender:</h3>
+  <ul>
+    <li>1. Criar um produto digital com IA em 1 hora</li>
+    <li>2. Onde vender com zero taxas</li>
+    <li>3. Atrair compradores com conteúdo simples</li>
+    <li>4. Automatizar para renda 24/7</li>
+  </ul>
 
-    <div class="produto" data-categoria="rotas">
-      <img src="https://cdn.pixabay.com/photo/2019/06/11/22/34/map-4269164_960_720.jpg" alt="Rota de Loot Alpha">
-      <div class="produto-info">
-        <h2>Rota de Loot Alpha</h2>
-        <p>Melhore sua coleta de loot com esta rota estratégica.</p>
-        <button class="btn-add" onclick="adicionarCarrinho('Rota de Loot Alpha')">Adicionar ao Carrinho</button>
-      </div>
-    </div>
+  <h3>🎁 Bônus por tempo limitado:</h3>
+  <ul>
+    <li>✔ Checklist de execução</li>
+    <li>✔ 10 prompts prontos para vendas</li>
+    <li>✔ Template de página de vendas (essa aqui!)</li>
+  </ul>
 
-    <div class="produto" data-categoria="estrategias">
-      <img src="https://cdn.pixabay.com/photo/2017/08/10/07/51/strategy-2616571_960_720.jpg" alt="Estratégia Mestre">
-      <div class="produto-info">
-        <h2>Estratégia Mestre</h2>
-        <p>Guia detalhado para melhorar suas táticas no jogo.</p>
-        <button class="btn-add" onclick="adicionarCarrinho('Estratégia Mestre')">Adicionar ao Carrinho</button>
-      </div>
-    </div>
+  <h2>🔥 De <s>R$197</s> por apenas <span class="highlight">R$29</span></h2>
+  <p>⚡ Acesso imediato. Sem mensalidade.<br>🔐 Garantia incondicional de 7 dias</p>
 
-    <div class="produto" data-categoria="packs">
-      <img src="https://cdn.pixabay.com/photo/2017/02/01/19/01/gift-2039219_960_720.jpg" alt="Pack Completo">
-      <div class="produto-info">
-        <h2>Pack Completo</h2>
-        <p>Combo com glider, rota e estratégias para você vencer.</p>
-        <button class="btn-add" onclick="adicionarCarrinho('Pack Completo')">Adicionar ao Carrinho</button>
-      </div>
-    </div>
-  </main>
+  <a href="https://kiwify.com.br/checkout/SEU-LINK-AQUI" class="button">QUERO GERAR RENDA AGORA</a>
 
-  <section id="carrinho" class="carrinho">
-    <h2>Seu Carrinho</h2>
-    <ul id="itens-carrinho"></ul>
-  </section>
-
-  <a class="whatsapp-btn" href="https://wa.me/55319967378666" target="_blank">
-    <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" alt="WhatsApp">
-  </a>
-
-  <footer>
-    <p>&copy; 2025 MV Drops. Todos os direitos reservados.</p>
-  </footer>
-
-  <script>
-    const carrinho = [];
-
-    function adicionarCarrinho(produto) {
-      carrinho.push(produto);
-      atualizarCarrinho();
-    }
-
-    function atualizarCarrinho() {
-      const lista = document.getElementById('itens-carrinho');
-      lista.innerHTML = '';
-      carrinho.forEach(item => {
-        const li = document.createElement('li');
-        li.textContent = item;
-        lista.appendChild(li);
-      });
-    }
-
-    function filtrarProdutos() {
-      const categoriaSelecionada = document.getElementById('categoria').value;
-      const produtos = document.querySelectorAll('.produto');
-
-      produtos.forEach(produto => {
-        const categoria = produto.getAttribute('data-categoria');
-        produto.style.display = categoriaSelecionada === 'todos' || categoria === categoriaSelecionada ? 'block' : 'none';
-      });
-    }
-  </script>
+  <form action="https://seuservidordeemail.com/inscrever" method="post">
+    <h3>💌 Quer receber atualizações e bônus exclusivos?</h3>
+    <input type="email" name="email" placeholder="Digite seu e-mail" required>
+    <input type="submit" value="Receber por e-mail">
+  </form>
 </body>
 </html>
