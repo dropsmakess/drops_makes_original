@@ -1,0 +1,417 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MV Drops</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Segoe+UI&display=swap');
+
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #0b0b0e url('b2a42c68-f34d-4ac0-8c44-fcdb7078fa08.gif') no-repeat center center fixed;
+      background-size: cover;
+      color: #ffffff;
+      position: relative;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    /* Overlay escura para legibilidade */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background-color: rgba(11, 11, 14, 0.85);
+      z-index: -1;
+    }
+    header {
+      background: linear-gradient(90deg, #6f00ff, #3c0071);
+      padding: 20px;
+      text-align: center;
+      position: relative;
+      z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.8rem;
+      color: #fff;
+    }
+    header button.logout-btn {
+      background-color: #9000ff;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    header button.logout-btn:hover {
+      background-color: #b13eff;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background-color: #141414cc;
+      padding: 10px;
+      gap: 20px;
+      position: relative;
+      z-index: 1;
+      flex-wrap: wrap;
+    }
+    nav button {
+      background-color: #3c0071;
+      color: #fff;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      min-width: 100px;
+    }
+    nav button:hover {
+      background-color: #6f00ff;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+      position: relative;
+      z-index: 1;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 30px;
+    }
+    .product {
+      background-color: #1a1a1fcc;
+      border: 1px solid #3e3e50;
+      border-radius: 12px;
+      padding: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      color: #d0aaff;
+    }
+    .product:hover {
+      transform: scale(1.03);
+      box-shadow: 0 0 15px rgba(111, 0, 255, 0.5);
+    }
+    .product img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 15px;
+    }
+    .product h2 {
+      font-size: 1.3rem;
+      margin: 0 0 10px;
+    }
+    .product p {
+      color: #ccc;
+      font-size: 0.95rem;
+      flex-grow: 1;
+    }
+    .add-cart {
+      background-color: #6f00ff;
+      border: none;
+      padding: 10px 15px;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 15px;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    .add-cart:hover {
+      background-color: #8b33ff;
+    }
+
+    /* Carrinho */
+    .cart {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #1f1f27cc;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      width: 280px;
+      max-height: 70vh;
+      overflow-y: auto;
+      z-index: 10;
+      color: #d0aaff;
+      box-shadow: 0 0 10px #6f00ffcc;
+    }
+    .cart h3 {
+      margin-top: 0;
+      font-size: 1.3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cart-count {
+      background-color: #6f00ff;
+      border-radius: 50%;
+      width: 24px;
+      height: 24px;
+      font-size: 1rem;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-weight: bold;
+    }
+    .cart-items {
+      list-style: none;
+      padding-left: 0;
+      margin: 10px 0 0 0;
+      font-size: 0.9rem;
+      max-height: 300px;
+      overflow-y: auto;
+    }
+    .cart-item {
+      background-color: #2a2a3a;
+      margin-bottom: 8px;
+      border-radius: 8px;
+      padding: 8px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #eee;
+    }
+    .cart-item span {
+      flex-grow: 1;
+      padding-right: 10px;
+    }
+    .cart-item button {
+      background-color: #9000ff;
+      border: none;
+      color: white;
+      padding: 5px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+    .cart-item button:hover {
+      background-color: #b13eff;
+    }
+    .cart-quantity {
+      margin-right: 15px;
+      font-weight: bold;
+    }
+    .quantity-controls button {
+      background-color: #6f00ff;
+      border: none;
+      color: white;
+      font-weight: bold;
+      padding: 4px 8px;
+      border-radius: 6px;
+      cursor: pointer;
+      margin: 0 2px;
+      transition: background-color 0.3s ease;
+    }
+    .quantity-controls button:hover {
+      background-color: #8b33ff;
+    }
+    .pay-button {
+      background-color: #3c0071;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 6px;
+      margin-top: 10px;
+      cursor: pointer;
+      width: 100%;
+      font-weight: bold;
+      font-size: 1rem;
+      transition: background-color 0.3s ease;
+    }
+    .pay-button:hover {
+      background-color: #6f00ff;
+    }
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #141414cc;
+      color: #777;
+      position: relative;
+      z-index: 1;
+      margin-top: 40px;
+    }
+    /* Responsividade */
+    @media (max-width: 600px) {
+      nav {
+        gap: 10px;
+      }
+      .cart {
+        width: 90vw;
+        max-height: 50vh;
+        right: 5%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>MV Drops</h1>
+    <button class="logout-btn" onclick="logout()">Sair</button>
+  </header>
+
+  <nav>
+    <button onclick="filterProducts('all')">Todos</button>
+    <button onclick="filterProducts('mouse')">Mouses</button>
+    <button onclick="filterProducts('teclado')">Teclados</button>
+    <button onclick="filterProducts('headset')">Headsets</button>
+    <button onclick="filterProducts('outros')">Outros</button>
+  </nav>
+
+  <div class="container">
+    <div class="product-grid" id="productGrid">
+      <!-- Produtos via JS -->
+    </div>
+  </div>
+
+  <div class="cart">
+    <h3>
+      Carrinho <span class="cart-count" id="cartCount">0</span>
+    </h3>
+    <ul class="cart-items" id="cartItems"></ul>
+    <button class="pay-button" onclick="pagar()">Finalizar Compra</button>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 MV Drops — Todos os direitos reservados.</p>
+  </footer>
+
+  <script>
+    // Redireciona para login se não estiver logado
+    if (!localStorage.getItem('mvUserEmail')) {
+      window.location.href = 'login.html';
+    }
+
+    const products = [
+      { name: 'God Glider Alpha', desc: 'Desempenho absurdo para jogadores exigentes.', category: 'mouse' },
+      { name: 'Shadow Phantom', desc: 'Mouse pad com superfície de altíssima resposta.', category: 'outros' },
+      { name: 'MV Core Mouse', desc: 'Sensor óptico de elite e design ergonômico.', category: 'mouse' },
+      { name: 'Purple Pulse Headset', desc: 'Som surround 7.1 e isolamento acústico.', category: 'headset' },
+      { name: 'MV Command Keyboard', desc: 'Teclado mecânico RGB com switches rápidos.', category: 'teclado' },
+      { name: 'Stealth Grip Glove', desc: 'Luvas gamer com aderência inteligente.', category: 'outros' },
+      { name: 'Storm Elite Chair', desc: 'Cadeira ergonômica com suporte lombar.', category: 'outros' },
+      { name: 'MV Nitro Hub', desc: 'Hub USB-C com luz ambiente roxa.', category: 'outros' },
+      { name: 'Blacklight Stand', desc: 'Suporte iluminado para headset e celular.', category: 'outros' },
+      { name: 'Digital Collector Pack', desc: 'Pacote com assets digitais temáticos.', category: 'outros' },
+    ];
+
+    const productGrid = document.getElementById('productGrid');
+    const cartItems = document.getElementById('cartItems');
+    const cartCount = document.getElementById('cartCount');
+
+    // Estado do carrinho: objeto com nome produto e quantidade
+    let cart = {};
+
+    // Renderiza produtos filtrados
+    function renderProducts(filter) {
+      productGrid.innerHTML = '';
+      const filtered = filter === 'all' ? products : products.filter(p => p.category === filter);
+      filtered.forEach((p, i) => {
+        const div = document.createElement('div');
+        div.className = 'product';
+        div.setAttribute('data-category', p.category);
+        div.innerHTML = `
+          <img src="https://via.placeholder.com/300x180?text=Produto+${i + 1}" alt="${p.name}">
+          <h2>${p.name}</h2>
+          <p>${p.desc}</p>
+          <button class="add-cart" onclick="addToCart('${p.name}')">Adicionar</button>
+        `;
+        productGrid.appendChild(div);
+      });
+    }
+
+    // Atualiza exibição do carrinho
+    function renderCart() {
+      cartItems.innerHTML = '';
+      let totalItems = 0;
+      for (const [name, qty] of Object.entries(cart)) {
+        totalItems += qty;
+        const li = document.createElement('li');
+        li.className = 'cart-item';
+        li.innerHTML = `
+          <span>${name}</span>
+          <div class="quantity-controls">
+            <button onclick="changeQuantity('${name}', -1)">-</button>
+            <span class="cart-quantity">${qty}</span>
+            <button onclick="changeQuantity('${name}', 1)">+</button>
+          </div>
+          <button onclick="removeFromCart('${name}')">x</button>
+        `;
+        cartItems.appendChild(li);
+      }
+      cartCount.textContent = totalItems;
+    }
+
+    // Adiciona item ao carrinho
+    function addToCart(name) {
+      if (!cart[name]) cart[name] = 0;
+      cart[name]++;
+      renderCart();
+    }
+
+    // Remove item do carrinho
+    function removeFromCart(name) {
+      delete cart[name];
+      renderCart();
+    }
+
+    // Muda quantidade do item no carrinho
+    function changeQuantity(name, delta) {
+      if (!cart[name]) return;
+      cart[name] += delta;
+      if (cart[name] <= 0) {
+        delete cart[name];
+      }
+      renderCart();
+    }
+
+    // Filtra produtos na tela
+    function filterProducts(category) {
+      renderProducts(category);
+    }
+
+    // Logout
+    function logout() {
+      localStorage.removeItem('mvUserEmail');
+      window.location.href = 'login.html';
+    }
+
+    // Finalizar compra (simulado)
+    function pagar() {
+      const items = Object.entries(cart);
+      if (items.length === 0) {
+        alert('Carrinho vazio.');
+        return;
+      }
+      let message = 'Compra realizada com sucesso:\\n';
+      items.forEach(([name, qty]) => {
+        message += `${name} — Quantidade: ${qty}\\n`;
+      });
+      alert(message);
+      cart = {};
+      renderCart();
+    }
+
+    // Inicialização
+    renderProducts('all');
+    renderCart();
+  </script>
+</body>
+</html>
