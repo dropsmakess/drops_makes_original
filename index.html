@@ -32,11 +32,27 @@
       text-align: center;
       position: relative;
       z-index: 1;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
     }
     header h1 {
       margin: 0;
       font-size: 2.8rem;
       color: #fff;
+    }
+    header button.logout-btn {
+      background-color: #9000ff;
+      color: white;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+    header button.logout-btn:hover {
+      background-color: #b13eff;
     }
     nav {
       display: flex;
@@ -67,32 +83,6 @@
       padding: 0 20px;
       position: relative;
       z-index: 1;
-    }
-    .auth {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 30px;
-      position: relative;
-      z-index: 1;
-      flex-wrap: wrap;
-      gap: 10px;
-    }
-    .auth input, .auth button {
-      padding: 10px;
-      margin: 5px 0;
-      border-radius: 6px;
-      border: none;
-      font-size: 1rem;
-    }
-    .auth input {
-      width: 200px;
-      max-width: 90vw;
-    }
-    .auth button {
-      background-color: #6f00ff;
-      color: white;
-      cursor: pointer;
-      min-width: 100px;
     }
     .product-grid {
       display: grid;
@@ -263,10 +253,6 @@
       nav {
         gap: 10px;
       }
-      .auth {
-        flex-direction: column;
-        align-items: center;
-      }
       .cart {
         width: 90vw;
         max-height: 50vh;
@@ -278,6 +264,7 @@
 <body>
   <header>
     <h1>MV Drops</h1>
+    <button class="logout-btn" onclick="logout()">Sair</button>
   </header>
 
   <nav>
@@ -287,16 +274,6 @@
     <button onclick="filterProducts('headset')">Headsets</button>
     <button onclick="filterProducts('outros')">Outros</button>
   </nav>
-
-  <div class="auth" id="authSection">
-    <input type="text" placeholder="Email" id="email" />
-    <input type="password" placeholder="Senha" id="password" />
-    <button onclick="login()">Entrar</button>
-  </div>
-
-  <div class="auth" id="welcomeSection" style="display:none; justify-content:center; color:#d0aaff; font-weight:bold;">
-    Bem-vindo, <span id="userEmail"></span>! <button onclick="logout()" style="margin-left: 15px; background-color:#9000ff; color:#fff; border:none; padding:6px 12px; border-radius:6px; cursor:pointer;">Sair</button>
-  </div>
 
   <div class="container">
     <div class="product-grid" id="productGrid">
@@ -317,6 +294,11 @@
   </footer>
 
   <script>
+    // Redireciona para login se não estiver logado
+    if (!localStorage.getItem('mvUserEmail')) {
+      window.location.href = 'login.html';
+    }
+
     const products = [
       { name: 'God Glider Alpha', desc: 'Desempenho absurdo para jogadores exigentes.', category: 'mouse' },
       { name: 'Shadow Phantom', desc: 'Mouse pad com superfície de altíssima resposta.', category: 'outros' },
@@ -333,9 +315,6 @@
     const productGrid = document.getElementById('productGrid');
     const cartItems = document.getElementById('cartItems');
     const cartCount = document.getElementById('cartCount');
-    const authSection = document.getElementById('authSection');
-    const welcomeSection = document.getElementById('welcomeSection');
-    const userEmailSpan = document.getElementById('userEmail');
 
     // Estado do carrinho: objeto com nome produto e quantidade
     let cart = {};
@@ -408,39 +387,10 @@
       renderProducts(category);
     }
 
-    // Login básico usando localStorage
-    function login() {
-      const email = document.getElementById('email').value.trim();
-      const password = document.getElementById('password').value.trim();
-      if (!email || !password) {
-        alert('Preencha todos os campos.');
-        return;
-      }
-      // Simula validação simples
-      localStorage.setItem('mvUserEmail', email);
-      alert('Login efetuado com sucesso! Bem-vindo, ' + email);
-      updateLoginStatus();
-    }
-
-    // Atualiza interface conforme login
-    function updateLoginStatus() {
-      const email = localStorage.getItem('mvUserEmail');
-      if (email) {
-        authSection.style.display = 'none';
-        welcomeSection.style.display = 'flex';
-        userEmailSpan.textContent = email;
-      } else {
-        authSection.style.display = 'flex';
-        welcomeSection.style.display = 'none';
-        userEmailSpan.textContent = '';
-      }
-    }
-
-    // Logout simples
+    // Logout
     function logout() {
       localStorage.removeItem('mvUserEmail');
-      alert('Você saiu da conta.');
-      updateLoginStatus();
+      window.location.href = 'login.html';
     }
 
     // Finalizar compra (simulado)
@@ -462,7 +412,6 @@
     // Inicialização
     renderProducts('all');
     renderCart();
-    updateLoginStatus();
   </script>
 </body>
 </html>
