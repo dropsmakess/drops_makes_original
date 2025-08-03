@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)file:///C:/Users/ronan/Downloads/index.html -->
+<html lang="pt-BR"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MV Drops</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #0b0b0e;
+      color: #ffffff;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+    header {
+      background: linear-gradient(90deg, #6f00ff, #3c0071);
+      padding: 20px;
+      text-align: center;
+    }
+    header h1 {
+      margin: 0;
+      font-size: 2.8rem;
+      color: #fff;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .auth, #welcomeSection {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 20px;
+      flex-wrap: wrap;
+    }
+    .auth input, .auth button {
+      padding: 10px;
+      border-radius: 6px;
+      border: none;
+      font-size: 1rem;
+    }
+    .auth button {
+      background-color: #6f00ff;
+      color: white;
+      cursor: pointer;
+    }
+    #adminPanel {
+      background-color: #2a2a3a;
+      padding: 20px;
+      border-radius: 12px;
+      margin-bottom: 30px;
+      color: #d0aaff;
+    }
+    #adminPanel input, #adminPanel select {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+      border-radius: 6px;
+      border: none;
+      font-size: 1rem;
+    }
+    #adminPanel button {
+      background-color: #6f00ff;
+      border: none;
+      color: white;
+      padding: 12px;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      width: 100%;
+    }
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 20px;
+    }
+    .product {
+      background-color: #1a1a1f;
+      padding: 20px;
+      border-radius: 12px;
+      text-align: center;
+      color: #d0aaff;
+    }
+    .product img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin-bottom: 10px;
+    }
+    .add-cart {
+      background-color: #6f00ff;
+      border: none;
+      padding: 10px 15px;
+      color: #fff;
+      border-radius: 6px;
+      cursor: pointer;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+    .cart {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      background-color: #1f1f27cc;
+      padding: 15px;
+      border-radius: 8px;
+      border: 1px solid #333;
+      width: 280px;
+      max-height: 70vh;
+      overflow-y: auto;
+      z-index: 10;
+      color: #d0aaff;
+      box-shadow: 0 0 10px #6f00ffcc;
+    }
+    .cart h3 {
+      margin-top: 0;
+      font-size: 1.3rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .cart-items {
+      list-style: none;
+      padding-left: 0;
+      margin: 10px 0 0 0;
+      font-size: 0.9rem;
+    }
+    .cart-item {
+      background-color: #2a2a3a;
+      margin-bottom: 8px;
+      border-radius: 8px;
+      padding: 8px 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #eee;
+    }
+  </style>
+<style type="text/css" id="operaUserStyle"></style></head>
+<body>
+  <header>
+    <h1>MV Drops</h1>
+  </header>
+
+  <div class="auth" id="authSection" style="display: none;">
+    <input type="text" placeholder="Email" id="email">
+    <input type="password" placeholder="Senha" id="password">
+    <button onclick="login()">Entrar</button>
+  </div>
+
+  <div class="auth" id="welcomeSection" style="display: flex;">
+    <span>Bem-vindo, <strong><span id="userEmail">adm.admin.com</span></strong>!</span>
+    <button onclick="logout()">Sair</button>
+  </div>
+
+  <div class="container">
+    <div id="adminPanel" style="display: block;">
+      <h2>Painel do Administrador</h2>
+      <input type="text" id="newName" placeholder="Nome do Produto">
+      <input type="text" id="newDesc" placeholder="Descrição">
+      <input type="text" id="newPrice" placeholder="Preço (ex: R$ 35,00)">
+      <button onclick="addProduct()">Adicionar Produto</button>
+    </div>
+
+    <div class="product-grid" id="productGrid"><div class="product">
+          <img src="https://via.placeholder.com/300x180?text=Produto+1" alt="God Glider">
+          <h2>God Glider</h2>
+          <p>Ferramenta essencial para players avançados.</p>
+          <p><strong>R$ 15,00</strong></p>
+          <button class="add-cart" onclick="addToCart(&#39;God Glider&#39;)">Adicionar</button>
+        </div><div class="product">
+          <img src="https://via.placeholder.com/300x180?text=Produto+2" alt="Rota de Loot">
+          <h2>Rota de Loot</h2>
+          <p>Mapeamento eficiente para loot ideal.</p>
+          <p><strong>R$ 17,00</strong></p>
+          <button class="add-cart" onclick="addToCart(&#39;Rota de Loot&#39;)">Adicionar</button>
+        </div><div class="product">
+          <img src="https://via.placeholder.com/300x180?text=Produto+3" alt="Estratégias do Meta">
+          <h2>Estratégias do Meta</h2>
+          <p>Conhecimento atualizado para dominar o meta.</p>
+          <p><strong>R$ 20,00</strong></p>
+          <button class="add-cart" onclick="addToCart(&#39;Estratégias do Meta&#39;)">Adicionar</button>
+        </div><div class="product">
+          <img src="https://via.placeholder.com/300x180?text=Produto+4" alt="3 VODs">
+          <h2>3 VODs</h2>
+          <p>Análise de partidas com feedback detalhado.</p>
+          <p><strong>R$ 35,00</strong></p>
+          <button class="add-cart" onclick="addToCart(&#39;3 VODs&#39;)">Adicionar</button>
+        </div><div class="product">
+          <img src="https://via.placeholder.com/300x180?text=Produto+5" alt="5 VODs">
+          <h2>5 VODs</h2>
+          <p>Pacote com 5 análises especializadas.</p>
+          <p><strong>R$ 50,00</strong></p>
+          <button class="add-cart" onclick="addToCart(&#39;5 VODs&#39;)">Adicionar</button>
+        </div><div class="product">
+          <img src="https://via.placeholder.com/300x180?text=Produto+6" alt="10 VODs (um camp todo)">
+          <h2>10 VODs (um camp todo)</h2>
+          <p>Acompanhamento completo de campeonato.</p>
+          <p><strong>R$ 100,00</strong></p>
+          <button class="add-cart" onclick="addToCart(&#39;10 VODs (um camp todo)&#39;)">Adicionar</button>
+        </div><div class="product">
+          <img src="https://via.placeholder.com/300x180?text=Produto+7" alt="God + Rota">
+          <h2>God + Rota</h2>
+          <p>Combo de movimentação e loot ideal.</p>
+          <p><strong>R$ 30,00</strong></p>
+          <button class="add-cart" onclick="addToCart(&#39;God + Rota&#39;)">Adicionar</button>
+        </div><div class="product">
+          <img src="https://via.placeholder.com/300x180?text=Produto+8" alt="God + Estratégias">
+          <h2>God + Estratégias</h2>
+          <p>Combo de skill + conhecimento tático.</p>
+          <p><strong>R$ 33,00</strong></p>
+          <button class="add-cart" onclick="addToCart(&#39;God + Estratégias&#39;)">Adicionar</button>
+        </div><div class="product">
+          <img src="https://via.placeholder.com/300x180?text=Produto+9" alt="Rota + Estratégias">
+          <h2>Rota + Estratégias</h2>
+          <p>Para dominar posicionamento e decisões.</p>
+          <p><strong>R$ 35,00</strong></p>
+          <button class="add-cart" onclick="addToCart(&#39;Rota + Estratégias&#39;)">Adicionar</button>
+        </div><div class="product">
+          <img src="https://via.placeholder.com/300x180?text=Produto+10" alt="3 VODs + God">
+          <h2>3 VODs + God</h2>
+          <p>Análise e refinamento de skill.</p>
+          <p><strong>R$ 45,00</strong></p>
+          <button class="add-cart" onclick="addToCart(&#39;3 VODs + God&#39;)">Adicionar</button>
+        </div><div class="product">
+          <img src="https://via.placeholder.com/300x180?text=Produto+11" alt="5 VODs + God">
+          <h2>5 VODs + God</h2>
+          <p>Pacote completo de evolução.</p>
+          <p><strong>R$ 55,99</strong></p>
+          <button class="add-cart" onclick="addToCart(&#39;5 VODs + God&#39;)">Adicionar</button>
+        </div><div class="product">
+          <img src="https://via.placeholder.com/300x180?text=Produto+12" alt="10 VODs + God">
+          <h2>10 VODs + God</h2>
+          <p>Desempenho profissional garantido.</p>
+          <p><strong>R$ 110,00</strong></p>
+          <button class="add-cart" onclick="addToCart(&#39;10 VODs + God&#39;)">Adicionar</button>
+        </div><div class="product">
+          <img src="https://via.placeholder.com/300x180?text=Produto+13" alt="Rotina de Treino">
+          <h2>Rotina de Treino</h2>
+          <p>Treino personalizado conforme sua necessidade.</p>
+          <p><strong>R$ 25,00</strong></p>
+          <button class="add-cart" onclick="addToCart(&#39;Rotina de Treino&#39;)">Adicionar</button>
+        </div></div>
+  </div>
+
+  <div class="cart">
+    <h3>Carrinho</h3>
+    <ul class="cart-items" id="cartItems"><li class="cart-item">God Glider x1</li><li class="cart-item">Rota de Loot x1</li><li class="cart-item">Estratégias do Meta x1</li></ul>
+  </div>
+
+  <script>
+    const adminEmail = 'adm.admin.com';
+    const products = [
+      { name: 'God Glider', desc: 'Ferramenta essencial para players avançados.', price: 'R$ 15,00' },
+      { name: 'Rota de Loot', desc: 'Mapeamento eficiente para loot ideal.', price: 'R$ 17,00' },
+      { name: 'Estratégias do Meta', desc: 'Conhecimento atualizado para dominar o meta.', price: 'R$ 20,00' },
+      { name: '3 VODs', desc: 'Análise de partidas com feedback detalhado.', price: 'R$ 35,00' },
+      { name: '5 VODs', desc: 'Pacote com 5 análises especializadas.', price: 'R$ 50,00' },
+      { name: '10 VODs (um camp todo)', desc: 'Acompanhamento completo de campeonato.', price: 'R$ 100,00' },
+      { name: 'God + Rota', desc: 'Combo de movimentação e loot ideal.', price: 'R$ 30,00' },
+      { name: 'God + Estratégias', desc: 'Combo de skill + conhecimento tático.', price: 'R$ 33,00' },
+      { name: 'Rota + Estratégias', desc: 'Para dominar posicionamento e decisões.', price: 'R$ 35,00' },
+      { name: '3 VODs + God', desc: 'Análise e refinamento de skill.', price: 'R$ 45,00' },
+      { name: '5 VODs + God', desc: 'Pacote completo de evolução.', price: 'R$ 55,99' },
+      { name: '10 VODs + God', desc: 'Desempenho profissional garantido.', price: 'R$ 110,00' },
+      { name: 'Rotina de Treino', desc: 'Treino personalizado conforme sua necessidade.', price: 'R$ 25,00' }
+    ];
+
+    const productGrid = document.getElementById('productGrid');
+    const cartItems = document.getElementById('cartItems');
+    let cart = {};
+
+    function renderProducts() {
+      productGrid.innerHTML = '';
+      products.forEach((p, i) => {
+        const div = document.createElement('div');
+        div.className = 'product';
+        div.innerHTML = `
+          <img src="https://via.placeholder.com/300x180?text=Produto+${i + 1}" alt="${p.name}">
+          <h2>${p.name}</h2>
+          <p>${p.desc}</p>
+          <p><strong>${p.price}</strong></p>
+          <button class="add-cart" onclick="addToCart('${p.name}')">Adicionar</button>
+        `;
+        productGrid.appendChild(div);
+      });
+    }
+
+    function addToCart(name) {
+      if (!cart[name]) cart[name] = 0;
+      cart[name]++;
+      renderCart();
+    }
+
+    function renderCart() {
+      cartItems.innerHTML = '';
+      for (const [name, qty] of Object.entries(cart)) {
+        const li = document.createElement('li');
+        li.className = 'cart-item';
+        li.textContent = `${name} x${qty}`;
+        cartItems.appendChild(li);
+      }
+    }
+
+    function login() {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      if (!email || !password) {
+        alert('Preencha todos os campos.');
+        return;
+      }
+      localStorage.setItem('mvUserEmail', email);
+      alert('Login efetuado com sucesso!');
+      updateLoginStatus();
+    }
+
+    function logout() {
+      localStorage.removeItem('mvUserEmail');
+      updateLoginStatus();
+    }
+
+    function updateLoginStatus() {
+      const email = localStorage.getItem('mvUserEmail');
+      const isAdmin = email === adminEmail;
+      document.getElementById('authSection').style.display = email ? 'none' : 'flex';
+      document.getElementById('welcomeSection').style.display = email ? 'flex' : 'none';
+      document.getElementById('userEmail').textContent = email || '';
+      document.getElementById('adminPanel').style.display = isAdmin ? 'block' : 'none';
+    }
+
+    function addProduct() {
+      const name = document.getElementById('newName').value.trim();
+      const desc = document.getElementById('newDesc').value.trim();
+      const price = document.getElementById('newPrice').value.trim();
+      if (!name || !desc || !price) {
+        alert('Preencha todos os campos do produto.');
+        return;
+      }
+      products.push({ name, desc, price });
+      alert('Produto adicionado com sucesso!');
+      renderProducts();
+    }
+
+    renderProducts();
+    updateLoginStatus();
+  </script>
+
+
+</body></html>
